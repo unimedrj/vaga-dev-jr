@@ -1,0 +1,4 @@
+cliente;periodo;valor_meta;valor_realizado
+Cliente 1;2019-01-01;;20
+Cliente 2;2019-01-01;12;5
+Cliente 3;2019-31-12;20;10
