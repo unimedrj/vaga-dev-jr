@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine
+FROM ruby:3.1-alpine
 
 LABEL Name=unimedrj-ruby Version=2.6
 
