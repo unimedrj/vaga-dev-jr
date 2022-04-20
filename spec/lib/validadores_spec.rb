@@ -39,9 +39,14 @@ RSpec.describe Validadores, type: :lib do
     end
 
     context "diversos" do
-      it "validador e-mail" do
+      it "validador e-mail - correto" do
         email = Validadores.email('teste@teste.com')
         expect(email).to eq(true)
+      end
+    
+      it "validador e-mail - incorreto" do
+        email = Validadores.email('teste.com')
+        expect(email).to eq(false)
       end
     end
   end

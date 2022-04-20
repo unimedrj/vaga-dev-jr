@@ -8,18 +8,43 @@ class Resultados
   end
 
   def calcula_performance
-    if valor_meta.nil? then
-      return 0
-    elsif valor_meta == 0
+    if valor_meta.to_f < 0 then
       return nil
-    elsif valor_realizado == 0
-      return 1
+    elsif valor_realizado.to_f < 0 then
+      return nil
     else
-      valor_realizado.to_f / valor_meta.to_f
+      if valor_meta.nil? then
+        return nil
+      elsif valor_meta == 0
+        return nil
+      elsif valor_realizado.nil? then
+        return nil
+      elsif valor_realizado == 0
+        return 0
+      else
+        valor_realizado.to_f / valor_meta.to_f
+      end
     end
   end
 
   def calcula_realizado
-    valor_meta * valor_performance
+    if valor_meta.to_f < 0 then
+      return nil
+    elsif valor_performance.to_f < 0 then
+      return nil
+    else
+      if valor_meta.nil? then
+        return nil
+      elsif valor_meta == 0
+        return nil
+      elsif valor_performance.nil? then
+        return nil
+      elsif valor_performance == 0
+        return 0
+      else
+        valor_meta.to_f * valor_performance.to_f
+      end
+    end
+    
   end
 end

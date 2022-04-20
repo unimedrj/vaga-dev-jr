@@ -1,10 +1,11 @@
 require 'rails_helper'
+require 'json'
 
 RSpec.describe ClientesController, type: :controller do
 
-  let(:valid_attributes) {
-    { nome: "unimedrj" }
-  }
+  let(:valid_attributes) { { nome: "unimedrj" } }
+
+  let(:invalid_attributes) { { nome: "VictorTesteNomeMaiorQueOPermitido" } }
 
   let(:valid_session) { {} }
 
@@ -33,6 +34,16 @@ RSpec.describe ClientesController, type: :controller do
       end
     end
   end
+
+  describe "POST #create" do
+  context "with invalid params" do
+    it "creates a new Cliente" do
+        post :create, params: {cliente: invalid_attributes}, session: valid_session
+        
+        expect(JSON.parse(response.body)).to eq("errors"=>{"nome"=>["is too long (maximum is 20 characters)"]}, "status"=>"unprocessable_entity")
+    end
+  end
+end
 
   describe "PUT #update" do
     context "with valid params" do

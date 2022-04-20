@@ -1,13 +1,12 @@
 FROM ruby:3.1-alpine
 
-LABEL Name=unimedrj-ruby Version=2.6
+LABEL Name=unimedrj-ruby Version=3.1
 
 WORKDIR /app
 
 RUN gem update bundler
 
 RUN apk --update --upgrade --no-cache add \
-    shared-mime-info \
     build-base \
     sqlite-dev \
     tzdata
