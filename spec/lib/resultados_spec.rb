@@ -39,8 +39,8 @@ RSpec.describe Resultados, type: :lib do
   describe "Calcular realizado" do
     it "com valor realizado valido" do
       resultado = Resultados.new
-      resultado.valor_performance = 0
-      resultado.valor_neta = 0
+      resultado.valor_performance = 1
+      resultado.valor_meta = 1
 
       expect(resultado.calcula_realizado).to eq(1)
     end
