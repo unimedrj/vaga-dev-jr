@@ -24,25 +24,45 @@ RSpec.describe Validadores, type: :lib do
       end
 
       it "salva arquivo na base e calcula performance total" do
-        # @file = File.open(arquivo_valido[:file])
+        @file = File.open(arquivo_valido[:file])
 
-        # CSV.foreach(@file, {headers: true, header_converters: :symbol, col_sep: ';'}) do |row|
-        #   cliente = Cliente.create!(nome: row[:cliente])
-        #   cliente.resultado.create!(periodo: row[:periodo], valor_meta: row[:valor_meta], valor_realizado: row[:valor_realizado])
-        # end
+        CSV.foreach(@file, {headers: true, header_converters: :symbol, col_sep: ';'}) do |row|
+          cliente = Cliente.create!(nome: row[:cliente])
+          cliente.resultado.create!(periodo: row[:periodo], valor_meta: row[:valor_meta], valor_realizado: row[:valor_realizado])
+        end
 
-        skip("escreva testes para esses casos")
+        # skip("escreva testes para esses casos")
+        expect(Cliente.all.size).to eq(3)
       end
     end
 
     context "Arquivo invalido" do
       it "validando datas" do
-        skip("escreva testes para esses casos")
+        # skip("escreva testes para esses casos")
+        @file = File.open(arquivo_valido[:file])
+
+        CSV.foreach(@file, {headers: true, header_converters: :symbol, col_sep: ';'}) do |row|
+          break unless Validadores.data(row[:periodo])
+          cliente = Cliente.create!(nome: row[:cliente])
+          cliente.resultado.create!(periodo: row[:periodo], valor_meta: row[:valor_meta], valor_realizado: row[:valor_realizado])
+        end
+
+        expect(Cliente.all.size).to eq(3)
       end
 
       it "inserindo linhas na base somente se arquivo valido" do
-        skip("escreva testes para esses casos")
+        # skip("escreva testes para esses casos")
+        @file = File.open(arquivo_valido[:file])
+
+        CSV.foreach(@file, {headers: true, header_converters: :symbol, col_sep: ';'}) do |row|
+          break unless Validadores.data(row[:periodo])
+          cliente = Cliente.create!(nome: row[:cliente])
+          cliente.resultado.create!(periodo: row[:periodo], valor_meta: row[:valor_meta], valor_realizado: row[:valor_realizado])
+      end
+
+      expect(Cliente.all.size).to eq(3)
       end
     end
   end
 end
+

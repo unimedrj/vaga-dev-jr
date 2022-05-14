@@ -16,7 +16,7 @@ RSpec.describe Resultados, type: :lib do
       resultado.valor_meta = 0
       resultado.valor_realizado = 20
 
-      expect(resultado.calcula_performance).to eq(nil)
+      expect(resultado.calcula_performance).to eq(0)
     end
 
     it "com valor realizado valido e meta null" do
@@ -24,7 +24,7 @@ RSpec.describe Resultados, type: :lib do
       resultado.valor_meta = nil
       resultado.valor_realizado = 20
 
-      expect(resultado.calcula_performance).to eq(0.0)
+      expect(resultado.calcula_performance).to eq(0)
     end
 
     it "com valor meta valido e realizado zero" do
@@ -32,19 +32,37 @@ RSpec.describe Resultados, type: :lib do
       resultado.valor_meta = 10
       resultado.valor_realizado = 0
 
-      expect(resultado.calcula_performance).to eq(1)
+      expect(resultado.calcula_performance).to eq(0)
+    end
+
+    it "com valor realizado valido e meta zero" do
+      resultado = Resultados.new
+      resultado.valor_meta = 0
+      resultado.valor_realizado = 10
+
+      expect(resultado.calcula_performance).to eq(0)
+    end
+
+    it "com valor meta valido e realizado zero" do
+      resultado = Resultados.new
+      resultado.valor_meta = 10
+      resultado.valor_realizado = 0
+
+      expect(resultado.calcula_performance).to eq(0)
     end
   end
 
-  describe "Calcular realizado" do
+  describe "Calcula realizado" do
     it "com valor realizado valido" do
       resultado = Resultados.new
-      resultado.valor_performance = 0
-      resultado.valor_neta = 0
+      resultado.valor_performance = 2
+      resultado.valor_meta = 10
 
-      expect(resultado.calcula_realizado).to eq(1)
+      expect(resultado.calcula_realizado).to eq(20)
     end
 
     # @TODO CRIE MAIS TESTES
+
+
   end
 end

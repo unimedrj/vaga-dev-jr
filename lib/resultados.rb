@@ -15,7 +15,6 @@ class Resultados
   end
 
   def calcula_realizado
-    return 0 if valor_realizado.zero?
-    valor_meta * valor_peformance
+    valor_meta * valor_performance
   end
 end

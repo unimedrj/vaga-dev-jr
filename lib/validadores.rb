@@ -1,13 +1,10 @@
 class Validadores
-  def match_periodo(periodo)
-    case periodo
-    when /(^(19|20)\d{2})((0[1-9])|(1[0-2])$)/ # YYYYMM
-      format_str = '%Y%m'
-    when /(^(19|20)\d{2})[\-]((0?[1-9]|1[012]){1}$)/ # YYYY-mm
-      format_str = '%Y-%m'
-    end
+  def self.match_full_periodo(periodo)
+    /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/.match?(periodo)
+  end
 
-    Date.strptime(periodo, format_str)
+  def self.match_periodo(periodo)
+    /(^(19|20)\d{2})[\-]((0?[1-9]|1[012]){1}$)/.match?(periodo)
   end
 
   def self.data(data)
@@ -15,10 +12,18 @@ class Validadores
   end
 
   def self.valor(valor)
-    /([+-]?((\d+|\d{1,3}(\.\d{3})+)(\,\d*)?|\,\d+))/.match?(valor)
+    /([+-]?((\d+|\d{1,3}(\.\d{3})+)(\,\d*)?|\,\d+))/.match?(valor.to_s)
   end
 
   def self.email(email)
     /([A-Za-z0-9]*((_*[\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,}))/.match?(email)
+  end
+
+  def self.decimal(decimal)
+    /^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/.match?(decimal.to_s)
+  end
+
+  def self.percentual(percentual)
+    /\b(?<!\.)(?!0+(?:\.0+)?%)(?:\d|[1-9]\d|100)(?:(?<!100)\.\d+)?%/.match?(percentual.to_s)
   end
 end
